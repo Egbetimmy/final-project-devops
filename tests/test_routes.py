@@ -8,6 +8,7 @@ Test cases can be run with the following:
 import os
 import logging
 from unittest import TestCase
+from unittest.mock import patch
 from tests.factories import AccountFactory
 from service.common import status  # HTTP Status Codes
 from service.models import db, Account, init_db
@@ -180,3 +181,42 @@ class TestAccountService(TestCase):
         # verify it's deleted
         response = self.client.get(f"{BASE_URL}/{account.id}")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_security_headers(self):
+        """It should return security headers"""
+        response = self.client.get("/", environ_overrides={'wsgi.url_scheme': 'https'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        headers = {
+            'X-Frame-Options': 'SAMEORIGIN',
+            'X-Content-Type-Options': 'nosniff',
+            'Referrer-Policy': 'strict-origin-when-cross-origin'
+        }
+        for key, value in headers.items():
+            self.assertIn(key, response.headers)
+            self.assertEqual(response.headers[key], value)
+
+    def test_cors_security(self):
+        """It should return CORS headers"""
+        response = self.client.get("/", environ_overrides={'wsgi.url_scheme': 'https'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.headers.get("Access-Control-Allow-Origin"), "*")
+
+    def test_method_not_allowed(self):
+        """It should return a 405 Method Not Allowed error"""
+        response = self.client.post(f"{BASE_URL}/1")
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        data = response.get_json()
+        self.assertEqual(data["error"], "Method not Allowed")
+
+    @patch('service.routes.Account.find')
+    def test_internal_server_error(self, mock_find):
+        """It should return a 500 Internal Server Error"""
+        mock_find.side_effect = Exception("Database error")
+        app.config["TESTING"] = False
+        try:
+            response = self.client.get(f"{BASE_URL}/1")
+            self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
+            data = response.get_json()
+            self.assertEqual(data["error"], "Internal Server Error")
+        finally:
+            app.config["TESTING"] = True

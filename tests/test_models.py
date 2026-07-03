@@ -142,6 +142,13 @@ class TestAccount(unittest.TestCase):
         self.assertEqual(same_account.id, account.id)
         self.assertEqual(same_account.name, account.name)
 
+    def test_repr_an_account(self):
+        """It should represent an account as a string"""
+        account = AccountFactory()
+        account.name = "TestName"
+        account.id = 42
+        self.assertEqual(repr(account), "<Account TestName id=[42]>")
+
     def test_serialize_an_account(self):
         """It should Serialize an account"""
         account = AccountFactory()
@@ -165,6 +172,16 @@ class TestAccount(unittest.TestCase):
         self.assertEqual(new_account.address, account.address)
         self.assertEqual(new_account.phone_number, account.phone_number)
         self.assertEqual(new_account.date_joined, account.date_joined)
+
+    def test_deserialize_an_account_without_date_joined(self):
+        """It should Deserialize an account without date_joined, defaulting it to today"""
+        account = AccountFactory()
+        serial_account = account.serialize()
+        del serial_account["date_joined"]
+        new_account = Account()
+        new_account.deserialize(serial_account)
+        from datetime import date
+        self.assertEqual(new_account.date_joined, date.today())
 
     def test_deserialize_with_key_error(self):
         """It should not Deserialize an account with a KeyError"""

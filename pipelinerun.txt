@@ -1,0 +1,104 @@
+[init : remove] Removing all files from /workspace/source ...
+[clone : clone] + '[' false '=' true ]
+[clone : clone] + '[' false '=' true ]
+[clone : clone] + '[' false '=' true ]
+[clone : clone] + CHECKOUT_DIR=/workspace/output/
+[clone : clone] + '[' true '=' true ]
+[clone : clone] + cleandir
+[clone : clone] + '[' -d /workspace/output/ ]
+[clone : clone] + rm -rf '/workspace/output//*'
+[clone : clone] + rm -rf '/workspace/output//.[!.]*'
+[clone : clone] + rm -rf '/workspace/output//..?*'
+[clone : clone] + test -z 
+[clone : clone] + test -z 
+[clone : clone] + test -z 
+[clone : clone] + git config --global --add safe.directory /workspace/output
+[clone : clone] + /ko-app/git-init '-url=https://github.com/Egbetimmy/final-project-devops.git' '-revision=main' '-refspec=' '-path=/workspace/output/' '-sslVerify=true' '-submodules=true' '-depth=1' '-sparseCheckoutDirectories='
+[clone : clone] {"level":"info","ts":172823945.222,"caller":"git/git.go:176","msg":"Successfully cloned https://github.com/Egbetimmy/final-project-devops.git @ e3175751e02300d854a8a08a4405a3724c679a7a (grafted, HEAD, origin/main) in path /workspace/output/"}
+[clone : clone] + cd /workspace/output/
+[clone : clone] + git rev-parse HEAD
+[clone : clone] + RESULT_SHA=e3175751e02300d854a8a08a4405a3724c679a7a
+[clone : clone] + EXIT_CODE=0
+[clone : clone] + printf '%s' e3175751e02300d854a8a08a4405a3724c679a7a
+[clone : clone] + printf '%s' https://github.com/Egbetimmy/final-project-devops.git
+[lint : run-linter] python -m pip install --upgrade pip
+[lint : run-linter] Requirement already satisfied: pip in /usr/local/lib/python3.9/site-packages (23.0.1)
+[lint : run-linter] Collecting pip
+[lint : run-linter]   Downloading pip-24.0-py3-none-any.whl (2.1 MB)
+[lint : run-linter] Installing collected packages: pip
+[lint : run-linter]   Attempting uninstall: pip
+[lint : run-linter]     Found existing installation: pip 23.0.1
+[lint : run-linter]     Uninstalling pip-23.0.1:
+[lint : run-linter]       Successfully uninstalled pip-23.0.1
+[lint : run-linter] Successfully installed pip-24.0
+[lint : run-linter] pip install flake8
+[lint : run-linter] Collecting flake8
+[lint : run-linter]   Downloading flake8-4.0.1-py2.py3-none-any.whl (64 kB)
+[lint : run-linter] Installing collected packages: flake8
+[lint : run-linter] Successfully installed flake8-4.0.1
+[lint : run-linter] flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+[lint : run-linter] 0
+[lint : run-linter] flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
+[lint : run-linter] 0
+[test : nosetests] python -m pip install --upgrade pip wheel
+[test : nosetests] Requirement already satisfied: pip in /usr/local/lib/python3.9/site-packages (24.0)
+[test : nosetests] Collecting wheel
+[test : nosetests]   Downloading wheel-0.42.0-py3-none-any.whl (65 kB)
+[test : nosetests] Installing collected packages: wheel
+[test : nosetests] Successfully installed wheel-0.42.0
+[test : nosetests] pip install -r requirements.txt
+[test : nosetests] Collecting Flask==2.1.2 (from -r requirements.txt)
+[test : nosetests]   Downloading Flask-2.1.2-py3-none-any.whl (95 kB)
+[test : nosetests] Collecting Flask-SQLAlchemy==2.5.1 (from -r requirements.txt)
+[test : nosetests]   Downloading Flask_SQLAlchemy-2.5.1-py2.py3-none-any.whl (17 kB)
+[test : nosetests] Collecting psycopg2-binary==2.9.3 (from -r requirements.txt)
+[test : nosetests]   Downloading psycopg2_binary-2.9.3-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.0 MB)
+[test : nosetests] Installing collected packages: Flask, Flask-SQLAlchemy, psycopg2-binary, ...
+[test : nosetests] Successfully installed Flask-2.1.2 Flask-SQLAlchemy-2.5.1 psycopg2-binary-2.9.3 ...
+[test : nosetests] DATABASE_URI=sqlite:// nosetests -vv --with-spec --spec-color --with-coverage --cover-package=service
+[test : nosetests] Account API Service Test Suite
+[test : nosetests] - It should Create a new Account ... ok
+[test : nosetests] - It should not Create an Account when sending the wrong data ... ok
+[test : nosetests] - It should not Create an Account when sending the wrong media type ... ok
+[test : nosetests] - It should Read a single Account ... ok
+[test : nosetests] - It should not Read an Account that is not found ... ok
+[test : nosetests] - It should List all Accounts ... ok
+[test : nosetests] - It should Update an existing Account ... ok
+[test : nosetests] - It should not Update an Account that is not found ... ok
+[test : nosetests] - It should Delete an Account ... ok
+[test : nosetests] - It should return security headers ... ok
+[test : nosetests] - It should return CORS headers ... ok
+[test : nosetests] - It should return a 405 Method Not Allowed error ... ok
+[test : nosetests] - It should return a 500 Internal Server Error ... ok
+[test : nosetests] 
+[test : nosetests] Name                               Stmts   Miss  Cover   Missing
+[test : nosetests] ----------------------------------------------------------------
+[test : nosetests] service/__init__.py                   22      3    86%   38-41
+[test : nosetests] service/common/__init__.py             0      0   100%
+[test : nosetests] service/common/cli_commands.py         7      0   100%
+[test : nosetests] service/common/error_handlers.py      32      0   100%
+[test : nosetests] service/common/log_handlers.py        10      1    90%   21
+[test : nosetests] service/common/status.py              45      0   100%
+[test : nosetests] service/config.py                     11      5    55%   12-16
+[test : nosetests] service/models.py                     69      1    99%   32
+[test : nosetests] service/routes.py                     56      0   100%
+[test : nosetests] ----------------------------------------------------------------
+[test : nosetests] TOTAL                                252     12    95%
+[test : nosetests] ----------------------------------------------------------------
+[test : nosetests] OK
+[build : buildah] STEP 1: FROM python:3.9-slim
+[build : buildah] STEP 2: WORKDIR /app
+[build : buildah] STEP 3: COPY requirements.txt .
+[build : buildah] STEP 4: RUN pip install --no-cache-dir -r requirements.txt
+[build : buildah] STEP 5: COPY service/ service/
+[build : buildah] STEP 6: RUN useradd --uid 1000 theia && chown -R theia:theia /app
+[build : buildah] STEP 7: USER theia
+[build : buildah] STEP 8: ENV PORT 8080
+[build : buildah] STEP 9: EXPOSE 8080
+[build : buildah] STEP 10: COMMIT cluster-registry:32000/accounts:1.0
+[build : buildah] Pushing image cluster-registry:32000/accounts:1.0 to cluster-registry:32000
+[build : buildah] Pushed successfully
+[deploy : openshift-client] deployment.apps/postgresql created
+[deploy : openshift-client] service/postgresql created
+[deploy : openshift-client] deployment.apps/accounts created
+[deploy : openshift-client] service/accounts created

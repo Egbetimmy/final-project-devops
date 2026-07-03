@@ -1,0 +1,15 @@
+curl -i http://localhost:8080/
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 58
+Access-Control-Allow-Origin: *
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin-when-cross-origin
+Server: gunicorn
+
+{
+  "name": "Account REST API Service",
+  "version": "1.0"
+}
