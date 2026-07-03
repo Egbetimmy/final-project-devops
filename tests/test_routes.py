@@ -150,7 +150,7 @@ class TestAccountService(TestCase):
         account = self._create_accounts(1)[0]
         new_account = account.serialize()
         new_account["name"] = "Updated Name"
-        
+
         # update it
         response = self.client.put(
             f"{BASE_URL}/{account.id}",
@@ -176,8 +176,7 @@ class TestAccountService(TestCase):
         account = self._create_accounts(1)[0]
         response = self.client.delete(f"{BASE_URL}/{account.id}")
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        
+
         # verify it's deleted
         response = self.client.get(f"{BASE_URL}/{account.id}")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-
