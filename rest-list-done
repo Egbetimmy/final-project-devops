@@ -1,15 +1,16 @@
 curl -X GET http://localhost:8080/accounts
 
 HTTP/1.1 200 OK
+Server: Werkzeug/2.1.2 Python/3.11.15
+Date: Fri, 03 Jul 2026 20:17:31 GMT
 Content-Type: application/json
+Content-Length: 155
+Access-Control-Allow-Origin: *
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Content-Security-Policy: default-src 'self'; object-src 'none'
+Referrer-Policy: strict-origin-when-cross-origin
+Connection: close
 
-[
-  {
-    "id": 1,
-    "name": "John Doe",
-    "email": "john.doe@example.com",
-    "address": "123 Main St, New York, NY",
-    "phone_number": "123-456-7890",
-    "date_joined": "2026-07-03"
-  }
-]
+[{"address":"123 Main St, New York, NY","date_joined":"2026-07-03","email":"john.doe@example.com","id":1,"name":"John Doe","phone_number":"123-456-7890"}]

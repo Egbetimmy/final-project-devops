@@ -1,13 +1,16 @@
 curl -X PUT -H "Content-Type: application/json" -d '{"name": "John Doe Updated", "email": "john.doe@example.com", "address": "456 Oak Ave, Boston, MA", "phone_number": "987-654-3210"}' http://localhost:8080/accounts/1
 
 HTTP/1.1 200 OK
+Server: Werkzeug/2.1.2 Python/3.11.15
+Date: Fri, 03 Jul 2026 20:17:50 GMT
 Content-Type: application/json
+Content-Length: 159
+Access-Control-Allow-Origin: *
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Content-Security-Policy: default-src 'self'; object-src 'none'
+Referrer-Policy: strict-origin-when-cross-origin
+Connection: close
 
-{
-  "id": 1,
-  "name": "John Doe Updated",
-  "email": "john.doe@example.com",
-  "address": "456 Oak Ave, Boston, MA",
-  "phone_number": "987-654-3210",
-  "date_joined": "2026-07-03"
-}
+{"address":"456 Oak Ave, Boston, MA","date_joined":"2026-07-03","email":"john.doe@example.com","id":1,"name":"John Doe Updated","phone_number":"987-654-3210"}
